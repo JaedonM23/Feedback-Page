@@ -4,14 +4,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
   <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
+  <script src="script.js" defer></script>
 </head>
 
 <body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
+  <header>
+    <section class="container">
+        <h1>Staff Relations App(Logo)</h1>
+        <h2>Feedback Page</h2>
+    </section>
+</header>
+
+<main>
+    <section class="grid-container">
+        <article id="feedbackList" class="grid-container">
+        </article>
+    </section>
+    
+    <br>
+    <br>
+    
+    <nav>
+      <h2>Give Feedback</h2>
+    
+      <ul id="taskList" class="grid-container">
+      </ul>
+    </nav>
+
+    <nav>
+      <ul id="staffList" class="grid-container">
+      </ul>
+    </nav>
+
+    <section id="commentArea" class="grid-container">
+      <block>
+        <textarea id="comment" placeholder="Enter Feedback"></textarea>
+      </block>
+    </section>
+    <section id="buttonArea">
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Staff Relations Management</p>
+</footer>  
 </body>
 
 </html>
