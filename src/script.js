@@ -15,30 +15,109 @@ function filterFeedbacksByStaff(feedbacks, staffName) {
 
 // Example usage:
 const staffName = "Jaedon"; //chosen staff as user for testing
+
+let assignments = [
+    
+    {
+        "task": "Task 1",
+        "staff": "Jaedon"
+    },
+    {
+        "task": "Task 1",
+        "staff": "Shaneel"
+    },
+    {
+        "task": "Task 1",
+        "staff": "Taruna"
+    },
+    {
+        "task": "Task 2",
+        "staff": "Jaedon"
+    },
+    {
+        "task": "Task 2",
+        "staff": "Shaneel"
+    },
+    {
+        "task": "Task 2",
+        "staff": "Keren"
+    },
+    {
+        "task": "Task 3",
+        "staff": "Shaneel"
+    },
+    {
+        "task": "Task 3",
+        "staff": "Angie"
+    },
+    {
+        "task": "Task 3",
+        "staff": "Taruna"
+    }
+];
+
+function groupByTask(assignments) {
+    const taskGroups = {};
+
+    assignments.forEach(assignment => {
+        const { task, staff } = assignment;
+        if (task in taskGroups) {
+            taskGroups[task].push(staff);
+        } else {
+            taskGroups[task] = [staff];
+        }
+    });
+
+    return Object.entries(taskGroups).map(([task, staff]) => ({ task, staff }));
+}
+
+let taskStaffArray = groupByTask(assignments); 
+console.log(taskStaffArray);
+
 let allFeedbacks = [
     {
         "task": "Task 1",
         "sender": "Shaneel",
         "comment": "Do ABC",
         "receiver": "Jaedon",
-        "staff": ["Jaedon", "Shaneel", "Taruna"]
+        //"staff": ["Jaedon", "Shaneel", "Taruna"]
     },
     {
         "task": "Task 2",
         "sender": "Taruna",
         "comment": "Do DEF",
         "receiver": "Shaneel",
-        "staff": ["Jaedon", "Shaneel", "Keren"]
+        //"staff": ["Jaedon", "Shaneel", "Keren"]
     },
     {
         "task": "Task 3",
         "sender": "Shaneel",
         "comment": "Do GHI",
         "receiver": "Taruna",
-        "staff": ["Shaneel", "Angie", "Taruna"]
+        //"staff": ["Shaneel", "Angie", "Taruna"]
     }
 ];//JSON array with all feedbacks, simulating database
 
+function addStaffToFeedbacks(groupByTask, allFeedbacks) {
+    // Create a map of tasks to associated staff members
+    const taskStaffMap = {};
+    groupByTask.forEach(taskObj => {
+        taskStaffMap[taskObj.task] = taskObj.staff;
+    });
+
+    // Add associated staff members to each feedback object
+    allFeedbacks.forEach(feedback => {
+        const task = feedback.task;
+        if (task in taskStaffMap) {
+            feedback.staff = taskStaffMap[task];
+        }
+    });
+
+    return allFeedbacks;
+}
+
+allFeedbacks = addStaffToFeedbacks(taskStaffArray, allFeedbacks);
+console.log(allFeedbacks);
 //Displaying of receiving feedback
 
 let filteredByReceiver = filterFeedbacksByReceiver(allFeedbacks, staffName); //feedbacks adressed to the user
